@@ -85,7 +85,7 @@ export class Redis implements IElement {
    * @override
    */
   async prepare() {
-    this.proxy.applyVars(this, 'title', 'uri', 'commands', 'opts')
+    await this.proxy.applyVars(this, 'title', 'uri', 'commands', 'opts')
     this.redis = new IORedis(this.uri, this.opts)
   }
 

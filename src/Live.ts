@@ -51,7 +51,7 @@ export class Live extends Redis {
    * @override
    */
   async prepare() {
-    this.proxy.applyVars(this, 'history', 'limit')
+    await this.proxy.applyVars(this, 'history', 'limit')
     await super.prepare()
   }
 
