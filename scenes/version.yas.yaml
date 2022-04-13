@@ -1,0 +1,29 @@
+- UserInput:
+    - title: Version
+      type: select
+      var: version
+      choices:
+        - title: New version NOT compatible with current version
+          value: major
+        - title: New version compatible with current version
+          value: minor
+        - title: Fix bugs
+          value: patch
+        - title: Pre-release
+          value: prerelease
+    - title: PreID
+      var: preid
+
+- UserInput:
+    - title: npm version ${version} --preid=${preid}
+      type: confirm
+      default: true
+      var: ok
+    
+- Script/Sh:
+    if: ${ok}
+    logLevel: debug
+    content: |
+      npm version ${version} --preid=${preid}
+      git push
+      git push --tags

@@ -1,0 +1,9 @@
+# extensions:
+#   yas-redis: ../../dist
+steps:
+  - yas-redis/Live:
+      uri: redis://172.17.0.2:6379/0
+      title: Test redis in docker container
+      history: clean
+      pretty: true
+      limit: 3

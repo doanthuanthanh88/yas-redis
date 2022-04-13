@@ -1,0 +1,18 @@
+# extensions:
+#   yas-redis: ../../dist
+steps:
+  - yas-redis:
+      uri: redis://172.17.0.2:6379/0
+      title: Test redis in docker container
+      commands:
+        - title: Set value to "test"
+          cmd: set test 'thanh 01'
+        - title: Get "test" value
+          cmd: get test
+          var: testValue
+        - flushall
+        - await redis.hset('h', 'a', 10)
+        - hget h a
+        - !function |
+          await redis.hget('h', 'a')
+        - hget h a
