@@ -4,8 +4,14 @@ A Redis client
 > It's an extension for `yaml-scene`  
 
 ## Features:
-- Live execute redis command
+- Redis live query tool
 - Execute redis command in scenario
+
+> Easy to create step by step for migration  
+> Easy to connect to many servers
+
+## Sharing
+1. [Redis live query tool](./sharing/README.md)
 
 ## Details document
 > [Wiki Pages](./GUIDE.md)
