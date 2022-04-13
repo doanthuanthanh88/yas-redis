@@ -19,7 +19,6 @@ A Redis client
 ## Prerequisite
 - Platform [`yaml-scene`](https://www.npmjs.com/package/yaml-scene)
 
-
 ## Installation
 
 ```sh

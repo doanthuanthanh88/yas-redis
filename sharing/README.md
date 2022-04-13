@@ -16,8 +16,7 @@ Run in local `yaml-scene`
 Run via docker
 ```sh
   docker run --rm -it --name redis-live-query-tool \
-  -p 5000:5000 \
-  -e URI=redis://0.0.0.0:6379/0
+  -e URI=redis://0.0.0.0:6379/0 \
   doanthuanthanh88/yaml-scene \
   -f \
   https://raw.githubusercontent.com/doanthuanthanh88/yas-redis/main/sharing/RedisLive.yas.yaml
