@@ -3413,10 +3413,10 @@ yallist@^4.0.0:
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
-yaml-scene@^1.1.19:
-  version "1.1.19"
-  resolved "https://registry.yarnpkg.com/yaml-scene/-/yaml-scene-1.1.19.tgz#198cf4e5c20e9377d62db19bd2748bc9c60ce9d8"
-  integrity sha512-JN2ReTUY1qKizZ7SbKzuUC2NLVygh2K9W2EDa4Wdbra3fOztQar07h+GHSp+A8ObZoFmfNpjiMqR3px84ioigA==
+yaml-scene@^1.1.20:
+  version "1.1.20"
+  resolved "https://registry.yarnpkg.com/yaml-scene/-/yaml-scene-1.1.20.tgz#9e82cf54e7d4200f5f6b8e51ef9b27558d2062e6"
+  integrity sha512-A/dgAYLM1sFZR+q/T4danfC3FgCjNeZsLOzBW1pRh0M1WqIQbm7gNjmCfF+iI11/B+TiMM0d3mRk4EmDClFtbQ==
   dependencies:
     chai "^4.3.6"
     chalk "^4.1.2"

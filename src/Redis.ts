@@ -130,6 +130,8 @@ export class Redis implements IElement {
       } else if (cmdString === 'flushall') {
         rs = await this.redis.flushall()
       } else {
+        debugger
+        console.log(cmdString)
         rs = await this.proxy.eval(cmdString, {
           redis: this.redis
         })
@@ -149,7 +151,7 @@ export class Redis implements IElement {
   protected getCommand(cmd: string | string[] | Functional): string[] | Functional {
     if (typeof cmd === 'string') {
       if (cmd.includes('redis.')) {
-        return new Functional(cmd)
+        return Functional.GetFunction(cmd)
       }
       const pt = /(("([^"]+)")|('([^']+)')|(([^\s]+)(\s|$)))/g
       let m: any
@@ -158,7 +160,7 @@ export class Redis implements IElement {
         cmds.push(m[7] || m[5] || m[3])
       }
       if (cmds.length === 1) {
-        return new Functional(cmds[0])
+        return Functional.GetFunction(cmds[0])
       }
       return cmds
     }

@@ -56,9 +56,10 @@ steps:
         - flushdb
         
         - !function |
-          redis.set('name1', 'thanh')
+          await redis.set('name1', 'thanh')
         - cmd: !function |
-            return await redis.get('name1')
+            const rs = await redis.get('name1')
+            return rs
           var: name1
 `)
   expect(VariableManager.Instance.vars.name1).toEqual('thanh')
