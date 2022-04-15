@@ -6,7 +6,9 @@ name: Node.js CI
 on:
   push:
     branches:
-      - "test.ci-with-redis-container"
+      - "main"
+    paths:
+      - "**.ts"
 
 jobs:
   build:
