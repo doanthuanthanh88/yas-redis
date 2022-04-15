@@ -4,11 +4,13 @@ import { VariableManager } from "yaml-scene/src/singleton/VariableManager"
 
 test('Array command', async () => {
   await Simulator.Run(`
+vars:
+  REDIS_HOST: 0.0.0.0
 extensions:
   yas-redis: ${join(__dirname, '../src')}
 steps:
   - yas-redis:
-      uri: redis://172.17.0.2:6379/9
+      uri: redis://\${REDIS_HOST}:6379/9
       commands:
         - flushdb
         
@@ -24,11 +26,13 @@ steps:
 
 test('String command', async () => {
   await Simulator.Run(`
+vars:
+  REDIS_HOST: 0.0.0.0
 extensions:
   yas-redis: ${join(__dirname, '../src')}
 steps:
   - yas-redis:
-      uri: redis://172.17.0.2:6379/9
+      uri: redis://\${REDIS_HOST}:6379/9
       commands:
         - flushdb
         
@@ -41,11 +45,13 @@ steps:
 
 test('Eval command', async () => {
   await Simulator.Run(`
+vars:
+  REDIS_HOST: 0.0.0.0
 extensions:
   yas-redis: ${join(__dirname, '../src')}
 steps:
   - yas-redis:
-      uri: redis://172.17.0.2:6379/9
+      uri: redis://\${REDIS_HOST}:6379/9
       commands:
         - flushdb
         

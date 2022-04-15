@@ -12,8 +12,8 @@
   "scripts": {
     "dev": "ts-node-dev --clear --rs --project tsconfig.json --ignore-watch [.*] --respawn --transpile-only -r tsconfig-paths/register --inspect-brk -- src/debug.ts",
     "start": "ts-node-dev --clear --rs --project tsconfig.json --ignore-watch [.*] --respawn --transpile-only -r tsconfig-paths/register -- src/debug.ts",
-    "test": "jest",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest",
+    "test": "node --expose-gc node_modules/.bin/jest",
+    "test:debug": "node --expose-gc --inspect-brk node_modules/.bin/jest",
     "doc": "npx yaml-scene scenes/guide.yas.yaml",
     "lint": "tsc --project tsconfig.lint.json",
     "prebuild": "yarn clean",
