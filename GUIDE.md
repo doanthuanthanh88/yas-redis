@@ -38,10 +38,11 @@ Execute redis command
         var: post                                 # Set result to "post" variable
 
       - cmd: !function                            # Write code in command
-          ({redis})                               # Declare variable is used. Redis is [ioredis](https://github.com/luin/ioredis)
-          await redis.set('name', thanh)          # Need "await" when use redis functions then return value to apply to variable
-          const rs = await redis.get('name')
-          return rs
+          () {                                    # Load global variables into function. [More](https://github.com/doanthuanthanh88/yaml-scene/wiki#user-content-!tags-!function)
+            await this.redis.set('name', thanh)   # Need "await" when use redis functions then return value to apply to variable
+            const rs = await this.redis.get('name')
+            return rs
+          }
         var: nameValue
 
 - Echo/Green: ${post}

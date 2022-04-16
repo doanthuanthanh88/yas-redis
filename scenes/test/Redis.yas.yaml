@@ -14,5 +14,8 @@ steps:
         - await redis.hset('h', 'a', 10)
         - hget h a
         - !function |
-          await redis.hget('h', 'a')
+          () {
+            const rs = await this.redis.hget('h', 'a')
+            return rs
+          }
         - hget h a

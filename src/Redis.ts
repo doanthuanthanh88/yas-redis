@@ -35,10 +35,11 @@ export type Cmd = { title?: string, cmd: string[] | string | Functional, args?: 
         var: post                                 # Set result to "post" variable
 
       - cmd: !function                            # Write code in command
-          ({redis})                               # Declare variable is used. Redis is [ioredis](https://github.com/luin/ioredis)
-          await redis.set('name', thanh)          # Need "await" when use redis functions then return value to apply to variable
-          const rs = await redis.get('name')
-          return rs
+          () {                                    # Load global variables into function. [More](https://github.com/doanthuanthanh88/yaml-scene/wiki#user-content-!tags-!function) 
+            await this.redis.set('name', thanh)   # Need "await" when use redis functions then return value to apply to variable
+            const rs = await this.redis.get('name')
+            return rs
+          }
         var: nameValue
 
 - Echo/Green: ${post}
@@ -120,8 +121,8 @@ export class Redis implements IElement {
       const [name, ...args] = cmd
       this.proxy.logger.debug(VariableManager.Instance.vars.$$text.gray(name, ...args))
       rs = await this.redis.sendCommand(new Command(name, args, { replyEncoding: 'utf-8' }))
-    } else {
-      const cmdString = cmd.toString()
+    } else if (typeof cmd === 'string') {
+      const cmdString = cmd
       if (cmdString === 'clear') {
         console.clear()
         return null
@@ -130,12 +131,13 @@ export class Redis implements IElement {
       } else if (cmdString === 'flushall') {
         rs = await this.redis.flushall()
       } else {
-        debugger
-        console.log(cmdString)
-        rs = await this.proxy.eval(cmdString, {
+        rs = await this.proxy.getVar(cmdString, {
           redis: this.redis
         })
       }
+    } else if (cmd instanceof Functional) {
+      const _handler = cmd.getFunctionFromBody()
+      rs = await this.proxy.call(_handler, undefined, { redis: this.redis })
     }
     this.proxy.logger.info(!this.pretty ? rs : JSON.stringify(rs, null, '  '))
     if (command.var) {
@@ -150,17 +152,11 @@ export class Redis implements IElement {
 
   protected getCommand(cmd: string | string[] | Functional): string[] | Functional {
     if (typeof cmd === 'string') {
-      if (cmd.includes('redis.')) {
-        return Functional.GetFunction(cmd)
-      }
       const pt = /(("([^"]+)")|('([^']+)')|(([^\s]+)(\s|$)))/g
       let m: any
       const cmds = [] as string[]
       while (m = pt.exec(cmd)) {
         cmds.push(m[7] || m[5] || m[3])
-      }
-      if (cmds.length === 1) {
-        return Functional.GetFunction(cmds[0])
       }
       return cmds
     }

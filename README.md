@@ -55,10 +55,11 @@ Execute redis command in scenario
         var: post                             # Set result to "post" var  
         
       - cmd: !function                        # Write code in command
-          ({redis})                           # Declare variable is used. Redis is [ioredis](https://github.com/luin/ioredis)
-          await redis.set('name', thanh)      # Need "await" when use redis functions then return value to apply to variable
-          const rs = await redis.get('name')
-          return rs
+          () {                                # Declare variable is used. Redis is [ioredis](https://github.com/luin/ioredis)
+            await this.redis.set('name', thanh)    # Need "await" when use redis functions then return value to apply to variable
+            const rs = await this.redis.get('name')
+            return rs
+          }
         var: nameValue
 ```
 

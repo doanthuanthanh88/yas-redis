@@ -22,8 +22,6 @@ steps:
   expect(VariableManager.Instance.vars.name1).toEqual('thanh')
 })
 
-
-
 test('String command', async () => {
   await Simulator.Run(`
 vars:
@@ -56,10 +54,14 @@ steps:
         - flushdb
         
         - !function |
-          await redis.set('name1', 'thanh')
+          () {
+            await this.redis.set('name1', 'thanh')
+          }
         - cmd: !function |
-            const rs = await redis.get('name1')
-            return rs
+            () {
+              const rs = await this.redis.get('name1')
+              return rs
+            }
           var: name1
 `)
   expect(VariableManager.Instance.vars.name1).toEqual('thanh')

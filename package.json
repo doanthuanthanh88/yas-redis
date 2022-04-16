@@ -30,7 +30,7 @@
     "lodash.merge": "^4.6.2"
   },
   "peerDependencies": {
-    "yaml-scene": "^1.1.20"
+    "yaml-scene": "^1"
   },
   "devDependencies": {
     "@types/ioredis": "^4.28.10",
@@ -43,7 +43,7 @@
     "tsconfig-paths": "^3.14.1",
     "typescript": "^4.3.5",
     "weak-napi": "^2.0.2",
-    "yaml-scene": "^1.1.20"
+    "yaml-scene": "^1"
   },
   "author": {
     "name": "Đoàn Thuận Thành",
