@@ -1,15 +1,19 @@
 import { tmpdir } from "os"
 import { join } from "path"
-import { File } from "yaml-scene/src/elements/File/adapter/File"
-import { IFileAdapter } from "yaml-scene/src/elements/File/adapter/IFileAdapter"
-import { Json } from "yaml-scene/src/elements/File/adapter/Json"
+import { FileReader } from "yaml-scene/src/elements/File/reader/FileReader"
+import { IFileReader } from "yaml-scene/src/elements/File/reader/IFileReader"
+import { JsonReader } from "yaml-scene/src/elements/File/reader/JsonReader"
+import { FileWriter } from "yaml-scene/src/elements/File/writer/FileWriter"
+import { IFileWriter } from "yaml-scene/src/elements/File/writer/IFileWriter"
+import { JsonWriter } from "yaml-scene/src/elements/File/writer/JsonWriter"
 import { VariableManager } from "yaml-scene/src/singleton/VariableManager"
 import { FileUtils } from "yaml-scene/src/utils/FileUtils"
 
 
 export class Cached {
   private tmpFile: string
-  private writer: IFileAdapter
+  private reader: IFileReader
+  private writer: IFileWriter
   data: Array<string>
   limit = 50
 
@@ -17,7 +21,8 @@ export class Cached {
     const key = VariableManager.Instance.vars.$$md5.encrypt(uri)
     this.tmpFile = join(tmpdir(), key)
     if (history === 'clean') this.clean()
-    this.writer = new Json(new File(this.tmpFile))
+    this.writer = new JsonWriter(new FileWriter(this.tmpFile))
+    this.reader = new JsonReader(new FileReader(this.tmpFile))
     this.data = []
   }
 
@@ -27,7 +32,7 @@ export class Cached {
 
   async load() {
     try {
-      const cnt = await this.writer.read() as string[]
+      const cnt = await this.reader.read() as string[]
       if (cnt) {
         cnt.forEach(cmd => this.data.push(cmd))
       }
